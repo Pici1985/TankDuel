@@ -1,68 +1,20 @@
 import kaplay from "kaplay";
 import "kaplay/global";
+import { createGreenTank, createGreyTank } from "./tanks.js";
+import { createWalls } from "./walls.js";
 
 kaplay();
 
-loadRoot("./"); // A good idea for Itch.io publishing later
+loadRoot("./");
 
-loadSprite("greenTank", "sprites/greenTank.png");
-loadSprite("greyTank", "sprites/greyTank.png");
-loadSprite("bg", "path/to/your/image.png");
+loadSprite("bg", "sprites/background.jpg");
 
-// Create perimeter walls
-const wallThickness = 20;
-const screenWidth = width();
-const screenHeight = height();
+add([sprite("bg"), pos(0, 0), fixed(), z(-1), tile(width(), height())]);
 
-// Top wall
-const topWall = add([
-  rect(screenWidth, wallThickness),
-  pos(0, 0),
-  area(),
-  body({ isStatic: true }),
-]);
+const walls = createWalls();
 
-// Bottom wall
-const bottomWall = add([
-  rect(screenWidth, wallThickness),
-  pos(0, screenHeight - wallThickness),
-  area(),
-  body({ isStatic: true }),
-]);
-
-// Left wall
-const leftWall = add([
-  rect(wallThickness, screenHeight),
-  pos(0, 0),
-  area(),
-  body({ isStatic: true }),
-]);
-
-// Right wall
-const rightWall = add([
-  rect(wallThickness, screenHeight),
-  pos(screenWidth - wallThickness, 0),
-  area(),
-  body({ isStatic: true }),
-]);
-
-const greyTank = add([
-  pos(1400, 400),
-  sprite("greyTank"),
-  rotate(180),
-  anchor("center"),
-  area(),
-  body(),
-]);
-
-const greenTank = add([
-  pos(300, 400),
-  sprite("greenTank"),
-  rotate(0),
-  anchor("center"),
-  area(),
-  body(),
-]);
+const greyTank = createGreyTank();
+const greenTank = createGreenTank();
 
 let draggedObject = null;
 
@@ -133,7 +85,8 @@ onUpdate(() => {
   }
 
   // Check collisions with walls
-  const walls = [topWall, bottomWall, leftWall, rightWall];
+  // const walls = [topWall, bottomWall, leftWall, rightWall];
+
   for (let wall of walls) {
     if (greenTank.isColliding(wall)) {
       addKaboom(greenTank.pos);

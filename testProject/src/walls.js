@@ -1,44 +1,40 @@
 import "kaplay/global";
 
-kaplay();
+const wallThickness = 20;
 
-const topWall = add([
-  rect(screenWidth, wallThickness),
-  pos(0, 0),
-  area(),
-  body({ isStatic: true }),
-]);
+export const createWalls = () => {
+  const screenWidth = width();
+  const screenHeight = height();
 
-const bottomWall = add([
-  rect(screenWidth, wallThickness),
-  pos(0, screenHeight - wallThickness),
-  area(),
-  body({ isStatic: true }),
-]);
+  const topWall = add([
+    rect(screenWidth, wallThickness),
+    pos(0, 0),
+    area(),
+    body({ isStatic: true }),
+  ]);
 
-const leftWall = add([
-  rect(wallThickness, screenHeight),
-  pos(0, 0),
-  area(),
-  body({ isStatic: true }),
-]);
+  const bottomWall = add([
+    rect(screenWidth, wallThickness),
+    pos(0, screenHeight - wallThickness),
+    area(),
+    body({ isStatic: true }),
+  ]);
 
-const rightWall = add([
-  rect(wallThickness, screenHeight),
-  pos(screenWidth - wallThickness, 0),
-  area(),
-  body({ isStatic: true }),
-]);
+  const leftWall = add([
+    rect(wallThickness, screenHeight),
+    pos(0, 0),
+    area(),
+    body({ isStatic: true }),
+  ]);
 
-const walls = [topWall, bottomWall, leftWall, rightWall];
+  const rightWall = add([
+    rect(wallThickness, screenHeight),
+    pos(screenWidth - wallThickness, 0),
+    area(),
+    body({ isStatic: true }),
+  ]);
 
-export default {
-  wallThickness,
-  screenWidth,
-  screenHeight,
-  topWall,
-  bottomWall,
-  leftWall,
-  rightWall,
-  walls,
+  return [topWall, bottomWall, leftWall, rightWall];
 };
+
+export { wallThickness };
