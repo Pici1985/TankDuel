@@ -13,8 +13,8 @@ add([sprite("bg"), pos(0, 0), fixed(), z(-1), tile(width(), height())]);
 
 const walls = createWalls();
 
-const { greyTank, turret } = createGreyTank();
-const greenTank = createGreenTank();
+const { greyTank, greyTurret } = createGreyTank();
+const { greenTank, greenTurret } = createGreenTank();
 
 // Collision detection between car and bean
 onUpdate(() => {
@@ -112,9 +112,17 @@ onKeyDown("5", () => {
 });
 
 onKeyDown("7", () => {
-  turret.angle += 2;
+  greyTurret.angle += 2;
 });
 
 onKeyDown("9", () => {
-  turret.angle -= 2;
+  greyTurret.angle -= 2;
+});
+
+onKeyDown("q", () => {
+  greenTurret.angle += 2;
+});
+
+onKeyDown("e", () => {
+  greenTurret.angle -= 2;
 });

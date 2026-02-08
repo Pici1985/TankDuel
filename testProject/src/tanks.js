@@ -13,14 +13,14 @@ export const createGreyTank = () => {
     body(),
   ]);
 
-  let turret = greyTank.add([
+  let greyTurret = greyTank.add([
     sprite("turret"),
-    pos(20, 0),
-    rotate(180),
-    anchor("center"),
+    pos(0, 0),
+    rotate(180),    
+    anchor(vec2(0.4, 0)),
   ]);
 
-  return { greyTank, turret };
+  return { greyTank, greyTurret };
 };
 
 export const createGreenTank = () => {
@@ -35,5 +35,12 @@ export const createGreenTank = () => {
     body(),
   ]);
 
-  return greenTank;
+  let greenTurret = greenTank.add([
+    sprite("turret"),
+    pos(0, 0),
+    rotate(180),    
+    anchor(vec2(0.4, 0)),
+  ]);
+
+  return { greenTank, greenTurret };
 };
