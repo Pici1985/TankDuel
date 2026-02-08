@@ -149,16 +149,13 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
     greyTurret.angle -= 2;
   });
 
-// need to fix this so that the bullet is created at the turret's position
 
-  onKeyDown("home", () => {
-    // Use only turret's angle
-    const angleRad = greyTurret.angle * (Math.PI / 180);
-    
+
+  onKeyDown("home", () => {    
     // Create the bullet
-    const bullet = greyTurret.add([
+    const bullet = add([
       rect(10, 5),        
-      pos(-90, -3),
+      pos(greyTurret.x - 87, greyTurret.y - 1),
       color(0, 0, 0),     
       body(),
       anchor("center"),
@@ -166,14 +163,12 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
-    bullet.vel = vec2(
-      Math.cos(angleRad) * bulletSpeed,
-      Math.sin(angleRad) * bulletSpeed
-    );
+
+    bullet.vel = Vec2.fromAngle(greyTurret.angle).scale(bulletSpeed); 
     
     // Optional: destroy bullet after 3 seconds
-    wait(2, () => {
-      destroy(bullet);
-    });
+    // wait(2, () => {
+    //   destroy(bullet);
+    // });
   });
 };
