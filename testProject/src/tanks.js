@@ -2,6 +2,7 @@ import "kaplay/global";
 
 export const createGreyTank = () => {
   loadSprite("greyTank", "sprites/greyTank.png");
+  loadSprite("turret", "sprites/turret.png");
 
   let greyTank = add([
     pos(1400, 400),
@@ -12,7 +13,14 @@ export const createGreyTank = () => {
     body(),
   ]);
 
-  return greyTank;
+  let turret = greyTank.add([
+    sprite("turret"),
+    pos(20, 0),
+    rotate(180),
+    anchor("center"),
+  ]);
+
+  return { greyTank, turret };
 };
 
 export const createGreenTank = () => {

@@ -1,0 +1,26 @@
+let draggedObject = null;
+
+// Handle clicking on car
+greyTank.onClick(() => {
+  if (draggedObject === greyTank) {
+    draggedObject = null; // Release
+  } else {
+    draggedObject = greyTank; // Pick up
+  }
+});
+
+// Handle clicking on car
+greenTank.onClick(() => {
+  if (draggedObject === greenTank) {
+    draggedObject = null; // Release
+  } else {
+    draggedObject = greenTank; // Pick up
+  }
+});
+
+// Update dragged object position with mouse
+onMouseMove(() => {
+  if (draggedObject) {
+    draggedObject.pos = mousePos();
+  }
+});

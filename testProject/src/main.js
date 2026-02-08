@@ -13,40 +13,13 @@ add([sprite("bg"), pos(0, 0), fixed(), z(-1), tile(width(), height())]);
 
 const walls = createWalls();
 
-const greyTank = createGreyTank();
+const { greyTank, turret } = createGreyTank();
 const greenTank = createGreenTank();
-
-let draggedObject = null;
-
-// Handle clicking on car
-greyTank.onClick(() => {
-  if (draggedObject === greyTank) {
-    draggedObject = null; // Release
-  } else {
-    draggedObject = greyTank; // Pick up
-  }
-});
-
-// Handle clicking on car
-greenTank.onClick(() => {
-  if (draggedObject === greenTank) {
-    draggedObject = null; // Release
-  } else {
-    draggedObject = greenTank; // Pick up
-  }
-});
-
-// Update dragged object position with mouse
-onMouseMove(() => {
-  if (draggedObject) {
-    draggedObject.pos = mousePos();
-  }
-});
 
 // Collision detection between car and bean
 onUpdate(() => {
   // Handle counter-based speed for green tank
-  const upCurrentlyPressed = isKeyDown("up");
+  const upCurrentlyPressed = isKeyDown("w");
 
   if (upCurrentlyPressed && !upPreviouslyPressed) {
     upCounter = 0;
@@ -63,7 +36,7 @@ onUpdate(() => {
   upPreviouslyPressed = upCurrentlyPressed;
 
   // Handle counter-based speed for green tank
-  const wCurrentlyPressed = isKeyDown("w");
+  const wCurrentlyPressed = isKeyDown("8");
 
   if (wCurrentlyPressed && !wPreviouslyPressed) {
     // Key just pressed - reset counter
@@ -84,9 +57,6 @@ onUpdate(() => {
     addKaboom(greenTank.pos.lerp(greyTank.pos, 0.5));
   }
 
-  // Check collisions with walls
-  // const walls = [topWall, bottomWall, leftWall, rightWall];
-
   for (let wall of walls) {
     if (greenTank.isColliding(wall)) {
       addKaboom(greenTank.pos);
@@ -106,14 +76,14 @@ let wPreviouslyPressed = false;
 let wCounter = 0;
 
 // greenTank controls
-onKeyDown("left", () => {
+onKeyDown("a", () => {
   greenTank.angle -= 2; // Rotate clockwise
 });
-onKeyDown("right", () => {
+onKeyDown("d", () => {
   greenTank.angle += 2; // Rotate counter-clockwise
 });
 
-onKeyDown("down", () => {
+onKeyDown("s", () => {
   const angleRad = greenTank.angle * (Math.PI / 180);
 
   // Reverse the direction by subtracting
@@ -124,14 +94,14 @@ onKeyDown("down", () => {
 });
 
 // greyTank controls
-onKeyDown("a", () => {
+onKeyDown("6", () => {
   greyTank.angle -= 2; // Rotate clockwise
 });
-onKeyDown("d", () => {
+onKeyDown("4", () => {
   greyTank.angle += 2; // Rotate counter-clockwise
 });
 
-onKeyDown("s", () => {
+onKeyDown("5", () => {
   const angleRad = greyTank.angle * (Math.PI / 180);
 
   // Reverse the direction by subtracting
@@ -139,4 +109,12 @@ onKeyDown("s", () => {
   const moveY = Math.sin(angleRad) * SPEEDGRAY;
 
   greyTank.move(-moveX, -moveY);
+});
+
+onKeyDown("7", () => {
+  turret.angle += 2;
+});
+
+onKeyDown("9", () => {
+  turret.angle -= 2;
 });
