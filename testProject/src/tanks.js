@@ -23,10 +23,94 @@ export const createGreyTank = () => {
   return { greyTank, greyTurret };
 };
 
+export const setupGreyTankControls = (greyTank, greyTurret) => {
+  const SPEEDGRAY = 100;
+  let wPreviouslyPressed = false;
+  let wCounter = 0;
+
+  // Forward movement with acceleration
+  onUpdate(() => {
+    const wCurrentlyPressed = isKeyDown("8");
+
+    if (wCurrentlyPressed && !wPreviouslyPressed) {
+      wCounter = 0;
+    } else if (wCurrentlyPressed) {
+      wCounter++;
+      const speedMultiplier = wCounter * 0.01;
+      const angleRad = greyTank.angle * (Math.PI / 180);
+      const moveX = Math.cos(angleRad) * SPEEDGRAY * speedMultiplier;
+      const moveY = Math.sin(angleRad) * SPEEDGRAY * speedMultiplier;
+      greyTank.move(moveX, moveY);
+    }
+    
+    wPreviouslyPressed = wCurrentlyPressed;
+  });
+
+  // Rotation controls
+  onKeyDown("6", () => {
+    greyTank.angle -= 2;
+  });
+
+  onKeyDown("4", () => {
+    greyTank.angle += 2;
+  });
+
+  // Reverse
+  onKeyDown("5", () => {
+    const angleRad = greyTank.angle * (Math.PI / 180);
+    const moveX = Math.cos(angleRad) * SPEEDGRAY;
+    const moveY = Math.sin(angleRad) * SPEEDGRAY;
+    greyTank.move(-moveX, -moveY);
+  });
+
+  // Turret controls
+  onKeyDown("7", () => {
+    greyTurret.angle += 2;
+  });
+  
+  onKeyDown("9", () => {
+    greyTurret.angle -= 2;
+  });
+  
+  onKeyDown("home", () => {    
+    // Get turret's world position
+    const turretWorldPos = greyTurret.worldPos();
+    
+    // Calculate offset from turret (adjust the distance as needed)
+    const offsetDistance = 85; // How far from turret center
+    const combinedAngle = greyTurret.angle + greyTank.angle + 180;
+    const angleRad = combinedAngle * (Math.PI / 180);
+    
+    // Calculate spawn position offset to the side
+    const spawnOffset = vec2(
+      Math.cos(angleRad) * offsetDistance,
+      Math.sin(angleRad) * offsetDistance
+    );
+    
+    // Create the bullet in the world (not as child)
+    const bullet = add([
+      rect(10, 5),        
+      pos(turretWorldPos.add(spawnOffset)), // Add offset to turret position
+      color(0, 0, 0),     
+      body(),
+      anchor("center"),
+      rotate(combinedAngle), // Set initial rotation
+    ]);
+    
+    // Set the bullet's velocity based on turret direction
+    const bulletSpeed = 500;
+    bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
+    
+    wait(2, () => {
+      destroy(bullet);
+    });
+  });  
+};
+
 export const createGreenTank = () => {
   loadSprite("greenTank", "sprites/greenTank.png");
   loadSprite("turret", "sprites/turret.png");
-
+  
   let greenTank = add([
     pos(300, 400),
     sprite("greenTank"),
@@ -42,7 +126,7 @@ export const createGreenTank = () => {
     rotate(180),    
     anchor(vec2(0.4, 0)),
   ]);
-
+  
   return { greenTank, greenTurret };
 };
 
@@ -98,77 +182,39 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   onKeyDown("shift", () => {
     console.log("fire green bullet");
   });
-};
 
-export const setupGreyTankControls = (greyTank, greyTurret) => {
-  const SPEEDGRAY = 100;
-  let wPreviouslyPressed = false;
-  let wCounter = 0;
-
-  // Forward movement with acceleration
-  onUpdate(() => {
-    const wCurrentlyPressed = isKeyDown("8");
-
-    if (wCurrentlyPressed && !wPreviouslyPressed) {
-      wCounter = 0;
-    } else if (wCurrentlyPressed) {
-      wCounter++;
-      const speedMultiplier = wCounter * 0.01;
-      const angleRad = greyTank.angle * (Math.PI / 180);
-      const moveX = Math.cos(angleRad) * SPEEDGRAY * speedMultiplier;
-      const moveY = Math.sin(angleRad) * SPEEDGRAY * speedMultiplier;
-      greyTank.move(moveX, moveY);
-    }
-
-    wPreviouslyPressed = wCurrentlyPressed;
-  });
-
-  // Rotation controls
-  onKeyDown("6", () => {
-    greyTank.angle -= 2;
-  });
-
-  onKeyDown("4", () => {
-    greyTank.angle += 2;
-  });
-
-  // Reverse
-  onKeyDown("5", () => {
-    const angleRad = greyTank.angle * (Math.PI / 180);
-    const moveX = Math.cos(angleRad) * SPEEDGRAY;
-    const moveY = Math.sin(angleRad) * SPEEDGRAY;
-    greyTank.move(-moveX, -moveY);
-  });
-
-  // Turret controls
-  onKeyDown("7", () => {
-    greyTurret.angle += 2;
-  });
-
-  onKeyDown("9", () => {
-    greyTurret.angle -= 2;
-  });
-
-
-
-  onKeyDown("home", () => {    
-    // Create the bullet
+  onKeyDown("space", () => {    
+    // Get turret's world position
+    const turretWorldPos = greenTurret.worldPos();
+    
+    // Calculate offset from turret (adjust the distance as needed)
+    const offsetDistance = 85; // How far from turret center
+    const combinedAngle = greenTurret.angle + greenTank.angle + 180;
+    const angleRad = combinedAngle * (Math.PI / 180);
+    
+    // Calculate spawn position offset to the side
+    const spawnOffset = vec2(
+      Math.cos(angleRad) * offsetDistance,
+      Math.sin(angleRad) * offsetDistance
+    );
+    
+    // Create the bullet in the world (not as child)
     const bullet = add([
       rect(10, 5),        
-      pos(greyTurret.x - 87, greyTurret.y - 1),
+      pos(turretWorldPos.add(spawnOffset)), // Add offset to turret position
       color(0, 0, 0),     
       body(),
       anchor("center"),
+      rotate(combinedAngle), // Set initial rotation
     ]);
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
-
-    bullet.vel = Vec2.fromAngle(greyTurret.angle).scale(bulletSpeed); 
+    bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
     
-    // Optional: destroy bullet after 3 seconds
-    // wait(2, () => {
-    //   destroy(bullet);
-    // });
-  });
+    wait(2, () => {
+      destroy(bullet);
+    });
+  });  
 };
+
