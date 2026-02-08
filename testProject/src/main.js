@@ -7,17 +7,20 @@ kaplay();
 
 loadRoot("./");
 
+// Main Background
 loadSprite("bg", "sprites/background.jpg");
-
 add([sprite("bg"), pos(0, 0), fixed(), z(-1), tile(width(), height())]);
 
+// Walls 
 const walls = createWalls();
 
+// Tanks
 const { greyTank, greyTurret } = createGreyTank();
 const { greenTank, greenTurret } = createGreenTank();
 
 setupGreyTankControls(greyTank, greyTurret);
 setupGreenTankControls(greenTank, greenTurret);
+
 
 // Collision detection
 onUpdate(() => {
