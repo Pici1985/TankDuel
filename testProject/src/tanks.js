@@ -47,11 +47,11 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   });
 
   // Rotation controls
-  onKeyDown("6", () => {
+  onKeyDown("4", () => {
     greyTank.angle -= 2;
   });
 
-  onKeyDown("4", () => {
+  onKeyDown("6", () => {
     greyTank.angle += 2;
   });
 
@@ -64,11 +64,11 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   });
 
   // Turret controls
-  onKeyDown("7", () => {
+  onKeyDown("9", () => {
     greyTurret.angle += 2;
   });
   
-  onKeyDown("9", () => {
+  onKeyDown("7", () => {
     greyTurret.angle -= 2;
   });
   
@@ -171,11 +171,11 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   });
 
   // Turret controls
-  onKeyDown("q", () => {
+  onKeyDown("e", () => {
     greenTurret.angle += 2;
   });
 
-  onKeyDown("e", () => {
+  onKeyDown("q", () => {
     greenTurret.angle -= 2;
   });
 

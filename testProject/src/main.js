@@ -18,8 +18,8 @@ const walls = createWalls();
 const { greyTank, greyTurret } = createGreyTank();
 const { greenTank, greenTurret } = createGreenTank();
 
-setupGreyTankControls(greyTank, greyTurret);
-setupGreenTankControls(greenTank, greenTurret);
+setupGreyTankControls(greyTank, greyTurret, walls);
+setupGreenTankControls(greenTank, greenTurret, walls);
 
 
 // Collision detection
