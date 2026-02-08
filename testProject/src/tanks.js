@@ -11,6 +11,7 @@ export const createGreyTank = () => {
     anchor("center"),
     area(),
     body(),
+    "greyTank",
   ]);
 
   let greyTurret = greyTank.add([
@@ -94,14 +95,20 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
       color(0, 0, 0),     
       body(),
       anchor("center"),
-      rotate(combinedAngle), // Set initial rotation
+      rotate(combinedAngle),
+      area(),
     ]);
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
     bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
     
-    wait(2, () => {
+    bullet.onCollide("greenTank", (target) => {
+      destroy(bullet);  // Destroy the bullet
+      addKaboom(bullet.pos);  // Add explosion effect      
+    });
+      
+    wait(4, () => {
       destroy(bullet);
     });
   });  
@@ -118,6 +125,7 @@ export const createGreenTank = () => {
     anchor("center"),
     area(),
     body(),
+    "greenTank",
   ]);
 
   let greenTurret = greenTank.add([
@@ -178,11 +186,7 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   onKeyDown("q", () => {
     greenTurret.angle -= 2;
   });
-
-  onKeyDown("shift", () => {
-    console.log("fire green bullet");
-  });
-
+  
   onKeyDown("space", () => {    
     // Get turret's world position
     const turretWorldPos = greenTurret.worldPos();
@@ -206,13 +210,19 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
       body(),
       anchor("center"),
       rotate(combinedAngle), // Set initial rotation
+      area(),
     ]);
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
     bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
     
-    wait(2, () => {
+    bullet.onCollide("greyTank", (target) => {
+      destroy(bullet);  // Destroy the bullet
+      addKaboom(bullet.pos);  // Add explosion effect      
+    });
+
+    wait(4, () => {
       destroy(bullet);
     });
   });  
