@@ -3,7 +3,7 @@ import "kaplay/global";
 export const createGreyTank = () => {
   loadSprite("greyTank", "sprites/greyTank.png");
   loadSprite("turret", "sprites/turret.png");
-
+ 
   let greyTank = add([
     pos(1400, 400),
     sprite("greyTank"),
@@ -25,6 +25,11 @@ export const createGreyTank = () => {
 };
 
 export const setupGreyTankControls = (greyTank, greyTurret) => {
+  loadSound("shot", "sounds/shot.mp3");
+  loadSound("hit", "sounds/hit.mp3");
+  loadSound("miss", "sounds/miss.mp3");
+  loadSound("engine", "sounds/engine.mp3");  
+
   const SPEEDGRAY = 100;
   let wPreviouslyPressed = false;
   let wCounter = 0;
@@ -36,9 +41,9 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   // Forward movement with acceleration
   onUpdate(() => {
     const wCurrentlyPressed = isKeyDown("8");
-
-    if (wCurrentlyPressed && !wPreviouslyPressed) {
-      wCounter = 0;
+             
+    if (wCurrentlyPressed && !wPreviouslyPressed) {      
+      wCounter = 0;      
     } else if (wCurrentlyPressed) {
       wCounter++;
       const speedMultiplier = wCounter * 0.01;
@@ -53,15 +58,15 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
 
   // Rotation controls
   onKeyDown("4", () => {
-    greyTank.angle -= 2;
+    greyTank.angle -= 1;
   });
 
   onKeyDown("6", () => {
-    greyTank.angle += 2;
+    greyTank.angle += 1;
   });
 
   // Reverse
-  onKeyDown("5", () => {
+  onKeyDown("5", () => {    
     const angleRad = greyTank.angle * (Math.PI / 180);
     const moveX = Math.cos(angleRad) * SPEEDGRAY;
     const moveY = Math.sin(angleRad) * SPEEDGRAY;
@@ -82,6 +87,7 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
     if (currentTime - lastFireTime < fireRate) {
       return; // Exit if still in cooldown
     }
+    play("shot");
     lastFireTime = currentTime; // Update last fire time
     
     // Get turret's world position
@@ -114,12 +120,14 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
     bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
     
     bullet.onCollide("greenTank", (target) => {
+      play("hit");
       destroy(bullet);  // Destroy the bullet
       addKaboom(bullet.pos);  // Add explosion effect      
     });
     
      // Collision with walls
     bullet.onCollide("walls", () => {
+      play("miss");
       addKaboom(bullet.pos, { scale: 0.4 });  // Play kaboom effect
       destroy(bullet);        // Destroy the bullet
     });
@@ -133,7 +141,8 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
 export const createGreenTank = () => {
   loadSprite("greenTank", "sprites/greenTank.png");
   loadSprite("turret", "sprites/turret.png");
-  
+ 
+
   let greenTank = add([
     pos(300, 400),
     sprite("greenTank"),
@@ -166,8 +175,8 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   // Forward movement with acceleration
   onUpdate(() => {
     const upCurrentlyPressed = isKeyDown("w");
-
-    if (upCurrentlyPressed && !upPreviouslyPressed) {
+        
+    if (upCurrentlyPressed && !upPreviouslyPressed) {      
       upCounter = 0;
     } else if (upCurrentlyPressed) {
       upCounter++;
@@ -183,11 +192,11 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
 
   // Rotation controls
   onKeyDown("a", () => {
-    greenTank.angle -= 2;
+    greenTank.angle -= 1;
   });
 
   onKeyDown("d", () => {
-    greenTank.angle += 2;
+    greenTank.angle += 1;
   });
 
   // Reverse
@@ -205,15 +214,16 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
 
   onKeyDown("q", () => {
     greenTurret.angle -= 2;
-  });
+  });  
   
   onKeyDown("space", () => {    
     const currentTime = time() * 1000; // Convert to milliseconds
     if (currentTime - lastFireTime < fireRate) {
       return; // Exit if still in cooldown
     }
+    play("shot");
     lastFireTime = currentTime; // Update last fire time
-    
+      
     // Get turret's world position
     const turretWorldPos = greenTurret.worldPos();
     
@@ -244,12 +254,14 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
     bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
     
     bullet.onCollide("greyTank", (target) => {
+      play("hit");
       destroy(bullet);  // Destroy the bullet
       addKaboom(bullet.pos);  // Add explosion effect      
     });
 
     // Collision with walls
     bullet.onCollide("walls", () => {
+      play("miss");
       addKaboom(bullet.pos, { scale: 0.4 });  // Play kaboom effect
       destroy(bullet);        // Destroy the bullet
     });

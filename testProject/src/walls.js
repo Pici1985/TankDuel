@@ -11,6 +11,8 @@ export const createWalls = () => {
     pos(0, 0),
     area(),
     body({ isStatic: true }),
+    color(150, 100, 50),  // Brown color for brick
+    outline(2, rgb(100, 50, 0)),  // Dark outline
     "walls",
   ]);
 
@@ -19,6 +21,8 @@ export const createWalls = () => {
     pos(0, screenHeight - wallThickness),
     area(),
     body({ isStatic: true }),
+    color(150, 100, 50),  // Brown color for brick
+    outline(2, rgb(100, 50, 0)),  // Dark outline
     "walls",
   ]);
 
@@ -27,6 +31,8 @@ export const createWalls = () => {
     pos(0, 0),
     area(),
     body({ isStatic: true }),
+    color(150, 100, 50),  // Brown color for brick
+    outline(2, rgb(100, 50, 0)),  // Dark outline
     "walls",
   ]);
 
@@ -35,6 +41,8 @@ export const createWalls = () => {
     pos(screenWidth - wallThickness, 0),
     area(),
     body({ isStatic: true }),
+    color(150, 100, 50),  // Brown color for brick
+    outline(2, rgb(100, 50, 0)),  // Dark outline
     "walls",
   ]);
 
@@ -43,6 +51,8 @@ export const createWalls = () => {
     pos((screenWidth/2) - (wallThickness/2), 200 ),
     area(),
     body({ isStatic: true }),
+    color(150, 100, 50),  // Brown color for brick
+    outline(2, rgb(100, 50, 0)),  // Dark outline
     "walls",
   ]);
 
