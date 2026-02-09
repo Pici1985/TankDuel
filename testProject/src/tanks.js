@@ -33,6 +33,7 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   const SPEEDGRAY = 100;
   let wPreviouslyPressed = false;
   let wCounter = 0;
+  let engineSound = null;
 
   // Add cooldown tracking
   let lastFireTime = 0;
@@ -41,6 +42,16 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   // Forward movement with acceleration
   onUpdate(() => {
     const wCurrentlyPressed = isKeyDown("8");
+    const reversePressed = isKeyDown("5");
+    const isMoving = wCurrentlyPressed || reversePressed;
+    
+    // Handle engine sound
+    if (isMoving && !engineSound) {
+      engineSound = play("engine", { loop: true, volume: 0.5 });
+    } else if (!isMoving && engineSound) {
+      engineSound.stop();
+      engineSound = null;
+    }
              
     if (wCurrentlyPressed && !wPreviouslyPressed) {      
       wCounter = 0;      
@@ -167,6 +178,7 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   const SPEEDGREEN = 100;
   let upPreviouslyPressed = false;
   let upCounter = 0;
+  let engineSound = null;
 
   // Add cooldown tracking
   let lastFireTime = 0;
@@ -175,6 +187,16 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   // Forward movement with acceleration
   onUpdate(() => {
     const upCurrentlyPressed = isKeyDown("w");
+    const reversePressed = isKeyDown("s");
+    const isMoving = upCurrentlyPressed || reversePressed;
+    
+    // Handle engine sound
+    if (isMoving && !engineSound) {
+      engineSound = play("engine", { loop: true, volume: 0.5 });
+    } else if (!isMoving && engineSound) {
+      engineSound.stop();
+      engineSound = null;
+    }
         
     if (upCurrentlyPressed && !upPreviouslyPressed) {      
       upCounter = 0;

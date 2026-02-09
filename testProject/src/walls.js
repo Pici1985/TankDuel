@@ -17,8 +17,8 @@ export const createWalls = () => {
   ]);
 
   const bottomWall = add([
-    rect(screenWidth, wallThickness),
-    pos(0, screenHeight - wallThickness),
+    rect(screenWidth, wallThickness * 2),
+    pos(0, screenHeight - (wallThickness * 2)),
     area(),
     body({ isStatic: true }),
     color(150, 100, 50),  // Brown color for brick
