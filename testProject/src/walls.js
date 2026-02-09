@@ -62,34 +62,34 @@ export const createWalls = () => {
 
   // Counter displays on bottom wall
   const greenTankCounter = add([
-    text("Green Tank Hits: 0", { size: 20 }),
+    text("Green Tank Score: 0", { size: 20 }),
     pos(50, screenHeight - (wallThickness * 2) + 10),
     color(0, 255, 0),
     z(10),
   ]);
 
   const greyTankCounter = add([
-    text("Grey Tank Hits: 0", { size: 20 }),
+    text("Grey Tank Score: 0", { size: 20 }),
     pos(screenWidth - 250, screenHeight - (wallThickness * 2) + 10),
-    color(128, 128, 128),
+    color(255, 255, 255),
     z(10),
   ]);
 
   // Functions to increment counters
-  const incrementGreenTankHits = () => {
+  const incrementGreenTankScore = () => {
     greenTankHits++;
-    greenTankCounter.text = `Green Tank Hits: ${greenTankHits}`;
+    greenTankCounter.text = `Green Tank Score: ${greenTankHits}`;
   };
 
-  const incrementGreyTankHits = () => {
+  const incrementGreyTankScore = () => {
     greyTankHits++;
-    greyTankCounter.text = `Grey Tank Hits: ${greyTankHits}`;
+    greyTankCounter.text = `Grey Tank Score: ${greyTankHits}`;
   };
 
   return {
     walls: [topWall, bottomWall, leftWall, rightWall, centerWall],
-    incrementGreenTankHits,
-    incrementGreyTankHits
+    incrementGreenTankScore,
+    incrementGreyTankScore
   };
 };
 
