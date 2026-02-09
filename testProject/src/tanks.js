@@ -24,7 +24,7 @@ export const createGreyTank = () => {
   return { greyTank, greyTurret };
 };
 
-export const setupGreyTankControls = (greyTank, greyTurret) => {
+export const setupGreyTankControls = (greyTank, greyTurret, walls, incrementGreenTankHits) => {
   loadSound("shot", "sounds/shot.mp3");
   loadSound("hit", "sounds/hit.mp3");
   loadSound("miss", "sounds/miss.mp3");
@@ -133,7 +133,8 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
     bullet.onCollide("greenTank", (target) => {
       play("hit");
       destroy(bullet);  // Destroy the bullet
-      addKaboom(bullet.pos);  // Add explosion effect      
+      addKaboom(bullet.pos);  // Add explosion effect
+      incrementGreenTankHits();  // Increment green tank hit counter
     });
     
      // Collision with walls
@@ -174,7 +175,7 @@ export const createGreenTank = () => {
   return { greenTank, greenTurret };
 };
 
-export const setupGreenTankControls = (greenTank, greenTurret) => {
+export const setupGreenTankControls = (greenTank, greenTurret, walls, incrementGreyTankHits) => {
   const SPEEDGREEN = 100;
   let upPreviouslyPressed = false;
   let upCounter = 0;
@@ -278,7 +279,8 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
     bullet.onCollide("greyTank", (target) => {
       play("hit");
       destroy(bullet);  // Destroy the bullet
-      addKaboom(bullet.pos);  // Add explosion effect      
+      addKaboom(bullet.pos);  // Add explosion effect
+      incrementGreyTankHits();  // Increment grey tank hit counter
     });
 
     // Collision with walls

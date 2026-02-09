@@ -56,7 +56,41 @@ export const createWalls = () => {
     "walls",
   ]);
 
-  return [topWall, bottomWall, leftWall, rightWall, centerWall];
+  // Hit counters
+  let greenTankHits = 0;
+  let greyTankHits = 0;
+
+  // Counter displays on bottom wall
+  const greenTankCounter = add([
+    text("Green Tank Hits: 0", { size: 20 }),
+    pos(50, screenHeight - (wallThickness * 2) + 10),
+    color(0, 255, 0),
+    z(10),
+  ]);
+
+  const greyTankCounter = add([
+    text("Grey Tank Hits: 0", { size: 20 }),
+    pos(screenWidth - 250, screenHeight - (wallThickness * 2) + 10),
+    color(128, 128, 128),
+    z(10),
+  ]);
+
+  // Functions to increment counters
+  const incrementGreenTankHits = () => {
+    greenTankHits++;
+    greenTankCounter.text = `Green Tank Hits: ${greenTankHits}`;
+  };
+
+  const incrementGreyTankHits = () => {
+    greyTankHits++;
+    greyTankCounter.text = `Grey Tank Hits: ${greyTankHits}`;
+  };
+
+  return {
+    walls: [topWall, bottomWall, leftWall, rightWall, centerWall],
+    incrementGreenTankHits,
+    incrementGreyTankHits
+  };
 };
 
 export { wallThickness };

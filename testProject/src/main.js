@@ -12,14 +12,14 @@ loadSprite("bg", "sprites/background.jpg");
 add([sprite("bg"), pos(0, 0), fixed(), z(-1), tile(width(), height())]);
 
 // Walls 
-const walls = createWalls();
+const { walls, incrementGreenTankHits, incrementGreyTankHits } = createWalls();
 
 // Tanks
 const { greyTank, greyTurret } = createGreyTank();
 const { greenTank, greenTurret } = createGreenTank();
 
-setupGreyTankControls(greyTank, greyTurret, walls);
-setupGreenTankControls(greenTank, greenTurret, walls);
+setupGreyTankControls(greyTank, greyTurret, walls, incrementGreenTankHits);
+setupGreenTankControls(greenTank, greenTurret, walls, incrementGreyTankHits);
 
 
 // Collision detection
