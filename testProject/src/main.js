@@ -26,14 +26,5 @@ setupGreenTankControls(greenTank, greenTurret, walls);
 onUpdate(() => {
   if (greenTank.isColliding(greyTank)) {
     addKaboom(greenTank.pos.lerp(greyTank.pos, 0.5));
-  }
-
-  for (let wall of walls) {
-    if (greenTank.isColliding(wall)) {
-      addKaboom(greenTank.pos);
-    }
-    if (greyTank.isColliding(wall)) {
-      addKaboom(greyTank.pos);
-    }
-  }
+  }  
 });

@@ -29,6 +29,10 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   let wPreviouslyPressed = false;
   let wCounter = 0;
 
+  // Add cooldown tracking
+  let lastFireTime = 0;
+  const fireRate = 333; 
+
   // Forward movement with acceleration
   onUpdate(() => {
     const wCurrentlyPressed = isKeyDown("8");
@@ -74,11 +78,17 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
   });
   
   onKeyDown("home", () => {    
+    const currentTime = time() * 1000; // Convert to milliseconds
+    if (currentTime - lastFireTime < fireRate) {
+      return; // Exit if still in cooldown
+    }
+    lastFireTime = currentTime; // Update last fire time
+    
     // Get turret's world position
     const turretWorldPos = greyTurret.worldPos();
     
     // Calculate offset from turret (adjust the distance as needed)
-    const offsetDistance = 85; // How far from turret center
+    const offsetDistance = 105; // How far from turret center
     const combinedAngle = greyTurret.angle + greyTank.angle + 180;
     const angleRad = combinedAngle * (Math.PI / 180);
     
@@ -107,8 +117,14 @@ export const setupGreyTankControls = (greyTank, greyTurret) => {
       destroy(bullet);  // Destroy the bullet
       addKaboom(bullet.pos);  // Add explosion effect      
     });
-      
-    wait(4, () => {
+    
+     // Collision with walls
+    bullet.onCollide("walls", () => {
+      addKaboom(bullet.pos, { scale: 0.4 });  // Play kaboom effect
+      destroy(bullet);        // Destroy the bullet
+    });
+    
+    wait(2, () => {
       destroy(bullet);
     });
   });  
@@ -143,6 +159,10 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   let upPreviouslyPressed = false;
   let upCounter = 0;
 
+  // Add cooldown tracking
+  let lastFireTime = 0;
+  const fireRate = 333; 
+  
   // Forward movement with acceleration
   onUpdate(() => {
     const upCurrentlyPressed = isKeyDown("w");
@@ -188,11 +208,17 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
   });
   
   onKeyDown("space", () => {    
+    const currentTime = time() * 1000; // Convert to milliseconds
+    if (currentTime - lastFireTime < fireRate) {
+      return; // Exit if still in cooldown
+    }
+    lastFireTime = currentTime; // Update last fire time
+    
     // Get turret's world position
     const turretWorldPos = greenTurret.worldPos();
     
     // Calculate offset from turret (adjust the distance as needed)
-    const offsetDistance = 85; // How far from turret center
+    const offsetDistance = 105; // How far from turret center
     const combinedAngle = greenTurret.angle + greenTank.angle + 180;
     const angleRad = combinedAngle * (Math.PI / 180);
     
@@ -222,7 +248,13 @@ export const setupGreenTankControls = (greenTank, greenTurret) => {
       addKaboom(bullet.pos);  // Add explosion effect      
     });
 
-    wait(4, () => {
+    // Collision with walls
+    bullet.onCollide("walls", () => {
+      addKaboom(bullet.pos, { scale: 0.4 });  // Play kaboom effect
+      destroy(bullet);        // Destroy the bullet
+    });
+
+    wait(2, () => {
       destroy(bullet);
     });
   });  

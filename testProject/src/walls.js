@@ -11,6 +11,7 @@ export const createWalls = () => {
     pos(0, 0),
     area(),
     body({ isStatic: true }),
+    "walls",
   ]);
 
   const bottomWall = add([
@@ -18,6 +19,7 @@ export const createWalls = () => {
     pos(0, screenHeight - wallThickness),
     area(),
     body({ isStatic: true }),
+    "walls",
   ]);
 
   const leftWall = add([
@@ -25,6 +27,7 @@ export const createWalls = () => {
     pos(0, 0),
     area(),
     body({ isStatic: true }),
+    "walls",
   ]);
 
   const rightWall = add([
@@ -32,9 +35,19 @@ export const createWalls = () => {
     pos(screenWidth - wallThickness, 0),
     area(),
     body({ isStatic: true }),
+    "walls",
   ]);
 
-  return [topWall, bottomWall, leftWall, rightWall];
+  const centerWall = add([
+    rect(wallThickness, screenHeight - 400),
+    pos((screenWidth/2) - (wallThickness/2), 200 ),
+    area(),
+    body({ isStatic: true }),
+    "walls",
+  ]);
+
+  return [topWall, bottomWall, leftWall, rightWall, centerWall];
 };
 
 export { wallThickness };
+
