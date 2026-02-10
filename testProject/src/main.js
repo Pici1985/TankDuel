@@ -73,6 +73,11 @@ scene("start", () => {
     go("game");
   });
   
+  onKeyPress("h", () => {
+    go("help");
+  });
+
+
   // Instructions
   add([
     text("Press ENTER or click START to begin", { size: 20 }),
@@ -81,6 +86,47 @@ scene("start", () => {
     color(200, 200, 200),
     z(1),
   ]);
+
+  // Help button
+  const helpButton = add([
+    rect(100, 30),
+    pos(width() / 2, height() / 2 + 230),
+    anchor("center"),
+    color(100, 100, 200),
+    area(),
+    z(1),
+    "button",
+  ]);
+
+  // Help button text
+  add([
+    text("HELP (h)", { size: 18 }),
+    pos(width() / 2, height() / 2 + 230),
+    anchor("center"),
+    color(255, 255, 255),
+    z(2),
+  ]);
+
+  // Help button hover effect
+  helpButton.onHoverUpdate(() => {
+    helpButton.color = rgb(120, 120, 220);
+  });
+  
+  helpButton.onHoverEnd(() => {
+    helpButton.color = rgb(100, 100, 200);
+  });
+  helpButton.onClick(() => {
+    go("help");
+  });
+});
+
+// Help Scene
+scene("help", () => {
+  // Background
+  add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
+  
+  // Help text
+  add([text("Help", { size: 24 }), pos(width() / 2, height() / 2), anchor("center"), color(255, 255, 255), z(1)]);
 });
 
 // Game Scene
