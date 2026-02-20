@@ -160,3 +160,111 @@ export function createHelpScene() {
     });
   });
 }
+
+// Game Over Scene
+export function createGameOverScene() {
+  scene("gameover", (winner) => {
+    // Background
+    add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
+
+    // Dark transparent overlay
+    add([
+      rect(600, 400),
+      pos(width() / 2, height() / 2),
+      anchor("center"),
+      color(0, 0, 0),
+      opacity(0.8),
+      z(0),
+    ]);
+
+    // Game Over title
+    add([
+      text("GAME OVER", { size: 64 }),
+      pos(width() / 2, height() / 2 - 100),
+      anchor("center"),
+      color(255, 50, 50),
+      z(1),
+    ]);
+
+    // Winner announcement
+    const winnerColor = winner === "Green Tank" ? rgb(0, 255, 0) : rgb(200, 200, 200);
+    add([
+      text(`${winner} Wins!`, { size: 48 }),
+      pos(width() / 2, height() / 2),
+      anchor("center"),
+      color(winnerColor),
+      z(1),
+    ]);
+
+    // Play Again button
+    const playAgainButton = add([
+      rect(200, 60),
+      pos(width() / 2, height() / 2 + 100),
+      anchor("center"),
+      color(100, 200, 100),
+      area(),
+      z(1),
+      "button",
+    ]);
+
+    add([
+      text("PLAY AGAIN", { size: 24 }),
+      pos(width() / 2, height() / 2 + 100),
+      anchor("center"),
+      color(255, 255, 255),
+      z(2),
+    ]);
+
+    playAgainButton.onHoverUpdate(() => {
+      playAgainButton.color = rgb(120, 220, 120);
+    });
+
+    playAgainButton.onHoverEnd(() => {
+      playAgainButton.color = rgb(100, 200, 100);
+    });
+
+    playAgainButton.onClick(() => {
+      go("game");
+    });
+
+    // Main Menu button
+    const menuButton = add([
+      rect(200, 60),
+      pos(width() / 2, height() / 2 + 180),
+      anchor("center"),
+      color(100, 100, 200),
+      area(),
+      z(1),
+      "button",
+    ]);
+
+    add([
+      text("MAIN MENU", { size: 24 }),
+      pos(width() / 2, height() / 2 + 180),
+      anchor("center"),
+      color(255, 255, 255),
+      z(2),
+    ]);
+
+    menuButton.onHoverUpdate(() => {
+      menuButton.color = rgb(120, 120, 220);
+    });
+
+    menuButton.onHoverEnd(() => {
+      menuButton.color = rgb(100, 100, 200);
+    });
+
+    menuButton.onClick(() => {
+      go("start");
+    });
+
+    // Keyboard shortcuts
+    onKeyPress("enter", () => {
+      go("game");
+    });
+
+    onKeyPress("escape", () => {
+      go("start");
+    });
+  });
+}

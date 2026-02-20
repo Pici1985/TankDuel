@@ -2,7 +2,7 @@ import kaplay from "kaplay";
 import "kaplay/global";
 import { createGreenTank, createGreyTank, setupGreenTankControls, setupGreyTankControls } from "./tanks.js";
 import { createWalls } from "./walls.js";
-import { createStartScene, createHelpScene } from "./scenes.js";
+import { createStartScene, createHelpScene, createGameOverScene } from "./scenes.js";
 
 kaplay();
 
@@ -14,6 +14,7 @@ loadSprite("bg", "sprites/background.jpg");
 // Register scenes
 createStartScene();
 createHelpScene();
+createGameOverScene();
 
 // Game Scene
 scene("game", () => {

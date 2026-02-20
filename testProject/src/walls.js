@@ -79,11 +79,17 @@ export const createWalls = () => {
   const incrementGreenTankScore = () => {
     greenTankHits++;
     greenTankCounter.text = `Green Tank Score: ${greenTankHits}`;
+    if (greenTankHits >= 10) {
+      go("gameover", "Green Tank");
+    }
   };
 
   const incrementGreyTankScore = () => {
     greyTankHits++;
     greyTankCounter.text = `Grey Tank Score: ${greyTankHits}`;
+    if (greyTankHits >= 10) {
+      go("gameover", "Grey Tank");
+    }
   };
 
   return {
