@@ -2,7 +2,7 @@ import "kaplay/global";
 
 export const createGreyTank = () => {
   loadSprite("greyTank", "sprites/greyTank.png");
-  loadSprite("turret", "sprites/turret.png");
+  loadSprite("greyTurret", "sprites/greyTurret.png");
  
   let greyTank = add([
     pos(1400, 400),
@@ -15,7 +15,7 @@ export const createGreyTank = () => {
   ]);
 
   let greyTurret = greyTank.add([
-    sprite("turret"),
+    sprite("greyTurret"),
     pos(0, 0),
     rotate(180),    
     anchor(vec2(0.4, 0)),
@@ -152,7 +152,7 @@ export const setupGreyTankControls = (greyTank, greyTurret, walls, incrementGrey
 
 export const createGreenTank = () => {
   loadSprite("greenTank", "sprites/greenTank.png");
-  loadSprite("turret", "sprites/turret.png");
+  loadSprite("greenTurret", "sprites/greenTurret.png");
  
 
   let greenTank = add([
@@ -166,7 +166,7 @@ export const createGreenTank = () => {
   ]);
 
   let greenTurret = greenTank.add([
-    sprite("turret"),
+    sprite("greenTurret"),
     pos(0, 0),
     rotate(180),    
     anchor(vec2(0.4, 0)),
