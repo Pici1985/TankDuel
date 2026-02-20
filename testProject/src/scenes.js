@@ -27,8 +27,8 @@ export function createStartScene() {
     
     // Start button
     const startButton = add([
-      rect(200, 60),
-      pos(width() / 2, height() / 2 + 50),
+      rect(200, 80),
+      pos(width() / 2, height() / 2 ),
       anchor("center"),
       color(100, 200, 100),
       area(),
@@ -38,8 +38,8 @@ export function createStartScene() {
     
     // Button text
     add([
-      text("START GAME", { size: 24 }),
-      pos(width() / 2, height() / 2 + 50),
+      text("START", { size: 32 }),
+      pos(width() / 2, height() / 2 ),
       anchor("center"),
       color(255, 255, 255),
       z(2),
@@ -72,7 +72,7 @@ export function createStartScene() {
     // Instructions
     add([
       text("Press ENTER or click START to begin", { size: 20 }),
-      pos(width() / 2, height() / 2 + 150),
+      pos(width() / 2, height() / 2 + 90),
       anchor("center"),
       color(200, 200, 200),
       z(1),
@@ -80,8 +80,8 @@ export function createStartScene() {
 
     // Help button
     const helpButton = add([
-      rect(100, 30),
-      pos(width() / 2, height() / 2 + 230),
+      rect(200, 80),
+      pos(width() / 2, height() / 2 + 180),
       anchor("center"),
       color(100, 100, 200),
       area(),
@@ -91,8 +91,8 @@ export function createStartScene() {
 
     // Help button text
     add([
-      text("HELP (h)", { size: 18 }),
-      pos(width() / 2, height() / 2 + 230),
+      text("HELP (h)", { size: 32 }),
+      pos(width() / 2, height() / 2 + 180),
       anchor("center"),
       color(255, 255, 255),
       z(2),
@@ -123,8 +123,8 @@ export function createHelpScene() {
 
     // Back button
     const backButton = add([
-      rect(100, 40),
-      pos(width() / 2, height() / 2 + 100),
+      rect(200, 80),
+      pos(width() / 2, height() / 2 + 180),
       anchor("center"),
       color(100, 100, 200),
       area(),
@@ -134,8 +134,8 @@ export function createHelpScene() {
 
     // Back button text
     add([
-      text("BACK", { size: 20 }),
-      pos(width() / 2, height() / 2 + 100),
+      text("BACK", { size: 32 }),
+      pos(width() / 2, height() / 2 + 180),
       anchor("center"),
       color(255, 255, 255),
       z(2),
@@ -188,6 +188,7 @@ export function createGameOverScene() {
 
     // Winner announcement
     const winnerColor = winner === "Green Tank" ? rgb(0, 255, 0) : rgb(200, 200, 200);
+    
     add([
       text(`${winner} Wins!`, { size: 48 }),
       pos(width() / 2, height() / 2),
@@ -196,10 +197,10 @@ export function createGameOverScene() {
       z(1),
     ]);
 
-    // Play Again button
+    // Play Again button (left side)
     const playAgainButton = add([
-      rect(200, 60),
-      pos(width() / 2, height() / 2 + 100),
+      rect(200, 80),
+      pos(width() / 2 - 110, height() / 2 + 100),
       anchor("center"),
       color(100, 200, 100),
       area(),
@@ -208,8 +209,8 @@ export function createGameOverScene() {
     ]);
 
     add([
-      text("PLAY AGAIN", { size: 24 }),
-      pos(width() / 2, height() / 2 + 100),
+      text("AGAIN", { size: 32 }),
+      pos(width() / 2 - 110, height() / 2 + 100),
       anchor("center"),
       color(255, 255, 255),
       z(2),
@@ -227,10 +228,10 @@ export function createGameOverScene() {
       go("game");
     });
 
-    // Main Menu button
+    // Main Menu button (right side)
     const menuButton = add([
-      rect(200, 60),
-      pos(width() / 2, height() / 2 + 180),
+      rect(200, 80),
+      pos(width() / 2 + 110, height() / 2 + 100),
       anchor("center"),
       color(100, 100, 200),
       area(),
@@ -239,8 +240,8 @@ export function createGameOverScene() {
     ]);
 
     add([
-      text("MAIN MENU", { size: 24 }),
-      pos(width() / 2, height() / 2 + 180),
+      text("MENU", { size: 32 }),
+      pos(width() / 2 + 110, height() / 2 + 100),
       anchor("center"),
       color(255, 255, 255),
       z(2),
