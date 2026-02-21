@@ -119,7 +119,7 @@ export const setupGreyTankControls = (greyTank, greyTurret, walls, incrementGrey
     const bullet = add([
       rect(10, 5),        
       pos(turretWorldPos.add(spawnOffset)), // Add offset to turret position
-      color(0, 0, 0),     
+      color(200, 70, 0),     
       body(),
       anchor("center"),
       rotate(combinedAngle),
@@ -276,7 +276,7 @@ export const setupGreenTankControls = (greenTank, greenTurret, walls, incrementG
     const bullet = add([
       rect(10, 5),        
       pos(turretWorldPos.add(spawnOffset)), // Add offset to turret position
-      color(0, 0, 0),     
+      color(200, 70, 0),     
       body(),
       anchor("center"),
       rotate(combinedAngle), // Set initial rotation
