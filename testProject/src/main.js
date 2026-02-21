@@ -42,12 +42,12 @@ scene("game", () => {
   setupGreyTankControls(greyTank, greyTurret, walls, incrementGreyTankScore);
   setupGreenTankControls(greenTank, greenTurret, walls, incrementGreenTankScore);
   
-  // Collision detection
-  onUpdate(() => {
-    if (greenTank.isColliding(greyTank)) {
-      addKaboom(greenTank.pos.lerp(greyTank.pos, 0.5));
-    }  
-  });
+  // // Collision detection
+  // onUpdate(() => {
+  //   if (greenTank.isColliding(greyTank)) {
+  //     addKaboom(greenTank.pos.lerp(greyTank.pos, 0.5));
+  //   }  
+  // });
 });
 
 // Start with the start screen
