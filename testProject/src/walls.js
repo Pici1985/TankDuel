@@ -76,7 +76,7 @@ export const createWalls = () => {
   ]);
 
   const versionText = add([
-    text("Beta v0.5.0.", { size: 12 }),
+    text("Beta v0.5.0. - Press P for controls", { size: 12 }),
     pos(screenWidth / 2, screenHeight - wallThickness),
     anchor("center"),
     color(200, 200, 200),
