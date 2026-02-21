@@ -1,8 +1,8 @@
 import kaplay from "kaplay";
 import "kaplay/global";
+import { createGameOverScene, createHelpScene, createStartScene } from "./scenes.js";
 import { createGreenTank, createGreyTank, setupGreenTankControls, setupGreyTankControls } from "./tanks.js";
 import { createWalls } from "./walls.js";
-import { createStartScene, createHelpScene, createGameOverScene } from "./scenes.js";
 
 kaplay();
 
@@ -10,6 +10,8 @@ loadRoot("./");
 
 // Load background sprite
 loadSprite("bg", "sprites/background.jpg");
+loadSprite("help", "sprites/helpLarge.png");
+loadSprite("muzzle", "sprites/muzzle-flash.png");
 
 // Register scenes
 createStartScene();
@@ -20,6 +22,7 @@ createGameOverScene();
 scene("game", () => {
   // Background
   add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
+  
   
   // Walls 
   const { walls, incrementGreenTankScore, incrementGreyTankScore } = createWalls();

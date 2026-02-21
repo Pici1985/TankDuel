@@ -118,13 +118,13 @@ export function createHelpScene() {
     // Background
     add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
     
-    // Help text
-    add([text("Help", { size: 24 }), pos(width() / 2, height() / 2), anchor("center"), color(255, 255, 255), z(1)]);
+    // Help image centered
+    add([sprite("help"), pos(width() / 2, height() / 2), anchor("center"), z(1)]);
 
     // Back button
     const backButton = add([
       rect(200, 80),
-      pos(width() / 2, height() / 2 + 180),
+      pos(width() / 2, height() / 2 + 280),
       anchor("center"),
       color(100, 100, 200),
       area(),
@@ -135,7 +135,7 @@ export function createHelpScene() {
     // Back button text
     add([
       text("BACK", { size: 32 }),
-      pos(width() / 2, height() / 2 + 180),
+      pos(width() / 2, height() / 2 + 280),
       anchor("center"),
       color(255, 255, 255),
       z(2),
