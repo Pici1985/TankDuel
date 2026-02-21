@@ -11,7 +11,7 @@ loadRoot("./");
 // Load background sprite
 loadSprite("bg", "sprites/background.jpg");
 loadSprite("help", "sprites/helpLarge.png");
-loadSprite("muzzle", "sprites/muzzle-flash.png");
+loadSprite("muzzle", "sprites/boom.png");
 
 // Register scenes
 createStartScene();
@@ -22,7 +22,6 @@ createGameOverScene();
 scene("game", () => {
   // Background
   add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
-  
   
   // Walls 
   const { walls, incrementGreenTankScore, incrementGreyTankScore } = createWalls();

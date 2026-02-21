@@ -126,6 +126,17 @@ export const setupGreyTankControls = (greyTank, greyTurret, walls, incrementGrey
       area(),
     ]);
     
+    // Muzzle flash effect
+    const muzzle = add([
+      sprite("muzzle"),
+      pos(turretWorldPos.add(spawnOffset)),
+      anchor("left"),
+      rotate(combinedAngle),
+      scale(0.5),
+      z(1),
+    ]);
+    wait(0.1, () => destroy(muzzle));
+    
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
     bullet.vel = Vec2.fromAngle(combinedAngle).scale(bulletSpeed); 
@@ -271,6 +282,17 @@ export const setupGreenTankControls = (greenTank, greenTurret, walls, incrementG
       rotate(combinedAngle), // Set initial rotation
       area(),
     ]);
+    
+    // Muzzle flash effect
+    const muzzle = add([
+      sprite("muzzle"),
+      pos(turretWorldPos.add(spawnOffset)),
+      anchor("left"),
+      rotate(combinedAngle),
+      scale(0.5),
+      z(1),
+    ]);
+    wait(0.3, () => destroy(muzzle));
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;
