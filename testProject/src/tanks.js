@@ -292,7 +292,7 @@ export const setupGreenTankControls = (greenTank, greenTurret, walls, incrementG
       scale(0.5),
       z(1),
     ]);
-    wait(0.3, () => destroy(muzzle));
+    wait(0.1, () => destroy(muzzle));
     
     // Set the bullet's velocity based on turret direction
     const bulletSpeed = 500;

@@ -1,5 +1,87 @@
 import "kaplay/global";
 
+// Pause Scene
+export function createPauseScene() {
+  scene("pause", () => {
+    // Background
+    add([sprite("bg"), pos(0, 0), z(-1), tile(width(), height())]);
+    
+    // Help image centered
+    add([sprite("help"), pos(width() / 2, height() / 2), anchor("center"), z(1)]);
+
+    // Resume button (left side)
+    const resumeButton = add([
+      rect(200, 80),
+      pos(width() / 2 - 110, height() / 2 + 280),
+      anchor("center"),
+      color(100, 200, 100),
+      area(),
+      z(1),
+      "button",
+    ]);
+
+    add([
+      text("RESUME", { size: 32 }),
+      pos(width() / 2 - 110, height() / 2 + 280),
+      anchor("center"),
+      color(255, 255, 255),
+      z(2),
+    ]);
+
+    resumeButton.onHoverUpdate(() => {
+      resumeButton.color = rgb(120, 220, 120);
+    });
+
+    resumeButton.onHoverEnd(() => {
+      resumeButton.color = rgb(100, 200, 100);
+    });
+
+    resumeButton.onClick(() => {
+      go("game");
+    });
+
+    // Menu button (right side)
+    const menuButton = add([
+      rect(200, 80),
+      pos(width() / 2 + 110, height() / 2 + 280),
+      anchor("center"),
+      color(100, 100, 200),
+      area(),
+      z(1),
+      "button",
+    ]);
+
+    add([
+      text("MENU", { size: 32 }),
+      pos(width() / 2 + 110, height() / 2 + 280),
+      anchor("center"),
+      color(255, 255, 255),
+      z(2),
+    ]);
+
+    menuButton.onHoverUpdate(() => {
+      menuButton.color = rgb(120, 120, 220);
+    });
+
+    menuButton.onHoverEnd(() => {
+      menuButton.color = rgb(100, 100, 200);
+    });
+
+    menuButton.onClick(() => {
+      go("start");
+    });
+
+    // Keyboard shortcuts
+    onKeyPress("escape", () => {
+      go("game");
+    });
+
+    onKeyPress("p", () => {
+      go("game");
+    });
+  });
+}
+
 // Start Screen Scene
 export function createStartScene() {
   scene("start", () => {
@@ -64,11 +146,6 @@ export function createStartScene() {
       go("game");
     });
     
-    onKeyPress("h", () => {
-      go("help");
-    });
-
-
     // Instructions
     add([
       text("Press ENTER or click START to begin", { size: 20 }),
@@ -91,7 +168,7 @@ export function createStartScene() {
 
     // Help button text
     add([
-      text("HELP (h)", { size: 32 }),
+      text("CONTROLS", { size: 32 }),
       pos(width() / 2, height() / 2 + 180),
       anchor("center"),
       color(255, 255, 255),
