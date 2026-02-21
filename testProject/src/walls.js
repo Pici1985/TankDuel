@@ -75,6 +75,14 @@ export const createWalls = () => {
     z(10),
   ]);
 
+  const versionText = add([
+    text("Beta v0.5.0.", { size: 12 }),
+    pos(screenWidth / 2, screenHeight - wallThickness),
+    anchor("center"),
+    color(200, 200, 200),
+    z(10),
+  ]);
+
   // Functions to increment counters
   const incrementGreenTankScore = () => {
     greenTankHits++;
